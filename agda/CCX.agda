@@ -41,8 +41,9 @@ rep-subst t Δ s = (λ r → subst t s (Δ r))
 user-subst : (t : Theory) → Users t → (Value t × Value t) → Users t
 user-subst t Γ (p , P) = (λ l → Γ l ∪ Γ p) -- TODO: leaves P
 
-singleton : ∀ {A} → A → A → Set
-singleton x = (λ y → y ≡ x)
+leaf-subst : (t : Theory) → Users t → Symbol t → List (Term (Symbol t))
+           → Users t
+leaf-subst t Γ f as = (λ l → Γ l ∪ singleton (app f as))
 
 data CongruenceClosure (t : Theory) :
      Configuration t → Configuration t → Set' where
